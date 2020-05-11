@@ -72,8 +72,9 @@ class TestProductApiView(TestCase):
         product = mixer.blend(ProductModel,no=101)
         response = self.client.delete("http://127.0.0.1:8000/delete/101/")
         print("STATUS",response.status_code)
-
         assert response.status_code == 204
+        assert ProductModel.objects.count() == 0
+
     def test_product_delete_fail(self):
         product = mixer.blend(ProductModel,no=101)
         response = self.client.delete("http://127.0.0.1:8000/delete/102/")
