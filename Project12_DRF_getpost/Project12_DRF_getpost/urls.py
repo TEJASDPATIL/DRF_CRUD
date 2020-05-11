@@ -13,13 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.views.decorators.csrf import csrf_exempt
 
 from app12 import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('product/',csrf_exempt(views.ProductOperations.as_view())),
+    #path('product/',csrf_exempt(views.ProductOperations.as_view()),name="product"),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    path('list/',views.ProductListView.as_view(),name="list_products"),
+    path('create/',views.ProductCreateApiView.as_view(),name="create"),
+    path('detail/<int:pk>/',views.ProductDetailApiView.as_view(),name="detail"),
+    path('delete/<int:pk>/',views.ProductDeleteApiView.as_view(),name="delete"),
+
 ]
