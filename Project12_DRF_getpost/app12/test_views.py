@@ -82,6 +82,8 @@ class TestProductApiView(TestCase):
 
         assert response.status_code == 404
 
+
+
 # class TestProduct(TestCase):
 #     def setUp(self):
 #         self.client = APIClient()
